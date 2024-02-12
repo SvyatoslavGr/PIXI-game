@@ -5,6 +5,8 @@ import { Background } from './Background.js';
 import { config } from './config.js';
 import { Dog } from './Dog.js';
 import { StartScreen } from './StartScreen.js';
+import { SuccessScreen } from './SuccessScreen.js';
+import { Scene } from './Scene.js';
 
 export const App = new Application({
   view: document.getElementById("pixi-canvas"),
@@ -12,16 +14,13 @@ export const App = new Application({
   autoDensity: true,
   backgroundColor: 0x000000,
   resizeTo: window,
-  dogsFound: 0,
 });
 
 globalThis.__PIXI_APP__ = App;
 
 Assets.load([...Object.keys(textures)]).then(() => {
-  App.stage.addChild(new Background, new Button);
-  for (let i = 0; i < 5; i++){
-    const dog = new Dog(config.dogsOptions[i])
-    App.stage.addChild(dog);
-  }
-  App.stage.addChild(new StartScreen);
+  const scene = new Scene();
+  App.dogsFound = 0;
+  App.scene = scene;
+  App.stage.addChild(scene);
 });

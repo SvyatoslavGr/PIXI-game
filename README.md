@@ -1,4 +1,4 @@
-# 🚀 Welcome to your new awesome project!
+# 🚀 A small game created using PIXI.js
 
 This project has been created using **webpack-cli**, you can now run
 
