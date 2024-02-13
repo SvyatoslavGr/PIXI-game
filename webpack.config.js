@@ -17,16 +17,9 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html',
-            hash: true,
-            minify: true,
-        }),
-
-        new CopyPlugin({
-            patterns: [{ from: './src/assets/' }],
         }),
     ],
     optimization: {
-        // minimize: argv.mode === 'production',
         minimizer: [new TerserPlugin({
             terserOptions: {
                 ecma: 6,

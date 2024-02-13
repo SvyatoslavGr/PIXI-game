@@ -1,7 +1,6 @@
 import { Background } from "./Background";
 import { Container, Graphics, Ticker } from "pixi.js";
 import { Dog } from "./Dog.js";
-import { App } from ".";
 import { Button } from "./Button";
 import { SuccessScreen } from "./SuccessScreen.js";
 import { StartScreen } from "./StartScreen.js";
@@ -11,6 +10,8 @@ export class Scene extends Container {
   constructor() {
     super();
     this.create();
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
   }
 
   create() {
@@ -20,12 +21,12 @@ export class Scene extends Container {
     this.createStartScreen();
     this.createSuccessScreen();
     this.createButton();
-    // window.addEventListener('resize', () => this.resize());
   }
 
   createBackground() {
     this.background = new Background();
     this.addChild(this.background);
+    this.resize();
   }
 
   createDogs() {
@@ -35,6 +36,7 @@ export class Scene extends Container {
       this.dogs.push(dog);
       this.addChild(dog);
     }
+    this.resize()
   }
 
   createOverlay() {
@@ -44,7 +46,7 @@ export class Scene extends Container {
     this.overlay.drawRect(0, 0, window.innerWidth, window.innerHeight);
     this.overlay.endFill();
     this.addChild(this.overlay);
-    // this.resize();
+    this.resize();
   }
 
   createStartScreen() {
@@ -52,19 +54,19 @@ export class Scene extends Container {
     this.fadeIn(2000, false);
     this.startScreen.showAnimation();
     this.addChild(this.startScreen);
-    // this.resize();
+    this.resize();
   }
 
   createSuccessScreen() {
     this.successScreen = new SuccessScreen();
     this.addChild(this.successScreen);
-    // this.resize();
+    this.resize();
   }
 
   createButton() {
     this.button = new Button();
     this.addChild(this.button);
-    // this.resize();
+    this.resize();
   }
 
   fadeIn(duration, successScreen) {
@@ -108,9 +110,20 @@ export class Scene extends Container {
         this.dogs.map((el) => el.eventMode = 'dynamic');
         this.overlay.renderable = false;
         this.startScreen.renderable = false;
-        // this.resize();
+        this.resize();
       }
     };
     ticker.add(onTick);
+  }
+
+  resize() {
+    if (this.overlay) {
+      this.overlay.width = window.innerWidth;
+      this.overlay.height = window.innerHeight;
+    }
+    this.button?.resize();
+    this.startScreen?.resize();
+    this.successScreen?.resize();
+    this.dogs?.map((el) => el.resize());
   }
 }

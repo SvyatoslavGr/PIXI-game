@@ -3,7 +3,7 @@ import { Assets } from "pixi.js";
 const assets = [];
 const textures = {};
 
-let req = require['context']('./assets/', true, /\.(png|jpg)$/);
+let req = require['context']('../assets/', true, /\.(png|jpg)$/);
 req.keys().forEach(key => {
   assets.push({
     key
@@ -20,4 +20,4 @@ Object.entries(textures).forEach(([key, value]) => {
   Assets.add({ src: value, alias: key });
 });
 
-export default textures;
+export { textures }

@@ -1,22 +1,22 @@
 import { Container, Text, Sprite } from "pixi.js";
 import gsap from "gsap";
-import { App } from "./index.js";
 
 export class Button extends Container {
   constructor() {
     super();
     this.bg = Sprite.from('btn');
     this.text = new Text("Play Now", {
-      fill: 0xFFFFCC,
+      fill: 0xFFFDD0,
       fontSize: 50,
       fontWeight: 'bold',
     });
+
     this.bg.anchor.set(0.5);
     this.text.anchor.set(0.5);
-    this.position.set(App.screen.width / 2, 600);
     this.addChild(this.bg, this.text);
     this.eventMode = 'dynamic';
     this.on("pointertap", () => this.click());
+    this.resize();
   }
 
   click() {
@@ -31,5 +31,15 @@ export class Button extends Container {
       { x: this.scale.x, y: this.scale.y },
       { x: this.scale.x * 1.1, y: this.scale.y * 1.1 },
     )
+  }
+
+  resize() {
+    this.y = window.innerHeight - 100;
+    this.x = window.innerWidth / 2;
+    if (window.innerHeight < window.innerHeight) {
+      this.scale.set(1.2);
+    } else {
+      this.scale.set(1);
+    }
   }
 }

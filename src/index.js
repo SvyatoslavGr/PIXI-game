@@ -1,12 +1,6 @@
 import { Application, Assets } from 'pixi.js';
-import textures from './assets.js'
-import { Button } from './Button.js';
-import { Background } from './Background.js';
-import { config } from './config.js';
-import { Dog } from './Dog.js';
-import { StartScreen } from './StartScreen.js';
-import { SuccessScreen } from './SuccessScreen.js';
-import { Scene } from './Scene.js';
+import { Scene } from './scripts/Scene.js';
+import { textures } from './scripts/assets.js';
 
 export const App = new Application({
   view: document.getElementById("pixi-canvas"),
