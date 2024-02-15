@@ -10,7 +10,6 @@ export class Scene extends Container {
   constructor() {
     super();
     this.create();
-    this.resize();
     window.addEventListener('resize', () => this.resize());
   }
 
@@ -26,7 +25,6 @@ export class Scene extends Container {
   createBackground() {
     this.background = new Background();
     this.addChild(this.background);
-    this.resize();
   }
 
   createDogs() {
@@ -34,9 +32,8 @@ export class Scene extends Container {
     for (let i = 0; i < 5; i++) {
       const dog = new Dog(config.dogsOptions[i])
       this.dogs.push(dog);
-      this.addChild(dog);
+      this.background.sprite.addChild(dog);
     }
-    this.resize()
   }
 
   createOverlay() {
@@ -46,7 +43,6 @@ export class Scene extends Container {
     this.overlay.drawRect(0, 0, window.innerWidth, window.innerHeight);
     this.overlay.endFill();
     this.addChild(this.overlay);
-    this.resize();
   }
 
   createStartScreen() {
@@ -54,19 +50,16 @@ export class Scene extends Container {
     this.fadeIn(2000, false);
     this.startScreen.showAnimation();
     this.addChild(this.startScreen);
-    this.resize();
   }
 
   createSuccessScreen() {
     this.successScreen = new SuccessScreen();
     this.addChild(this.successScreen);
-    this.resize();
   }
 
   createButton() {
     this.button = new Button();
     this.addChild(this.button);
-    this.resize();
   }
 
   fadeIn(duration, successScreen) {
@@ -110,7 +103,6 @@ export class Scene extends Container {
         this.dogs.map((el) => el.eventMode = 'dynamic');
         this.overlay.renderable = false;
         this.startScreen.renderable = false;
-        this.resize();
       }
     };
     ticker.add(onTick);

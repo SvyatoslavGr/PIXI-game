@@ -1,34 +1,40 @@
-import { App } from "../index.js";
 import { Container, Sprite, Texture } from "pixi.js";
 import { successText_1, successText_2, successTitle } from "./texts";
 
 export class SuccessScreen extends Container {
   constructor() {
     super();
-    this.title = successTitle;
-    this.text_1 = successText_1;
-    this.text_2 = successText_2;
-    this.logo = Sprite.from("logo");
-    this.characterLandscape = Sprite.from("char");
-    this.characterPortrait = Sprite.from("char");
-
-    this.characterPortrait.scale.set(-0.5, 0.5);
-    this.characterPortrait.anchor.set(0.5);
-    this.characterPortrait.position.set(0, -20);
-
-    this.characterLandscape.scale.set(0.9);
-    this.characterLandscape.anchor.set(0.5, 0.5);
-    this.characterLandscape.position.set(-380, 5);
-
-    this.logo.anchor.set(0.5);
-    this.title.anchor.set(0.5);
-    this.text_1.anchor.set(0.5);
-    this.text_2.anchor.set(0.5);
-
+    this.createTexts();
+    this.createCharacters();
     this.createGradientSprite();
     this.addChild(this.characterLandscape, this.characterPortrait, this.gradientSprite, this.logo, this.title, this.text_1, this.text_2);
     this.renderable = false;
     this.resize();
+  }
+  
+  createTexts() {
+    this.title = successTitle;
+    this.text_1 = successText_1;
+    this.text_2 = successText_2;
+    this.logo = Sprite.from("logo");
+    
+    this.logo.anchor.set(0.5);
+    this.title.anchor.set(0.5);
+    this.text_1.anchor.set(0.5);
+    this.text_2.anchor.set(0.5);
+  }
+  
+  createCharacters() {
+    this.characterLandscape = Sprite.from("char");
+    this.characterPortrait = Sprite.from("char");
+  
+    this.characterPortrait.scale.set(-0.5, 0.5);
+    this.characterPortrait.anchor.set(0.5);
+    this.characterPortrait.position.set(0, -20);
+  
+    this.characterLandscape.scale.set(0.9);
+    this.characterLandscape.anchor.set(0.5, 0.5);
+    this.characterLandscape.position.set(-380, 5);
   }
 
   createGradientTexture() {
@@ -50,10 +56,10 @@ export class SuccessScreen extends Container {
     this.gradientSprite = gradientSprite;
     this.gradientSprite.anchor.set(0.5);
     this.gradientSprite.pivot.set(0.5);
-    this.gradientSprite.angle = 90
-    this.gradientSprite.width = 300;
-    this.gradientSprite.height = 300;
-    this.gradientSprite.position.set(-this.gradientSprite.height / 2, this.characterPortrait.y + this.characterPortrait.height / 2 - this.gradientSprite.width / 2);
+    this.gradientSprite.angle = 90;
+    this.gradientSprite.width = 400;
+    this.gradientSprite.height = window.innerWidth;
+    this.gradientSprite.position.set(-this.gradientSprite.height / 2, this.characterPortrait.y + 20 + this.characterPortrait.height / 2 - this.gradientSprite.width / 2);
   }
 
   positionElementsLandscape() {
@@ -89,9 +95,8 @@ export class SuccessScreen extends Container {
   }
 
   resize() {
-    const { width, height } = App.screen;
-    this.position.set(width / 2, height / 2);
-    if (width < height) {
+    this.position.set(innerWidth / 2, window.innerHeight / 2);
+    if (innerWidth < window.innerHeight) {
       this.positionElementsPortrait();
     } else {
       this.positionElementsLandscape();

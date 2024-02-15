@@ -15,6 +15,5 @@ globalThis.__PIXI_APP__ = App;
 Assets.load([...Object.keys(textures)]).then(() => {
   const scene = new Scene();
   App.dogsFound = 0;
-  App.scene = scene;
   App.stage.addChild(scene);
 });
